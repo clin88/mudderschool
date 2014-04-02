@@ -8,5 +8,5 @@ def hello_world_lulu():
 
 
 def main():
-  app_lulu.run(debug=True)
+  mud_app.run(debug=True)
 
