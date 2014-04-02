@@ -7,6 +7,6 @@ def hello_world_lulu():
 
 
 
-
-if __name__ == '__main__':
+def main():
   app_lulu.run(debug=True)
+
