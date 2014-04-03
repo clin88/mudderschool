@@ -5,7 +5,7 @@ From there, your journey is up to you."""
 from flask import Flask, g
 from flask.ext.heroku import Heroku
 
-app = Flask(__name__, debug=True)
+app = Flask(__name__)
 heroku = Heroku(app)
 
 @app.route('/mud')
