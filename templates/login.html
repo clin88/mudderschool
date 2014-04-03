@@ -1,0 +1,24 @@
+<html>
+    <head>
+    </head>
+    <body>
+        Flashed messages:
+    <UL>
+        {% for msg in get_flashed_messages() %}
+        <li>{{msg}}</li>
+        {% endfor %}
+    </UL>
+        
+        {% if session.user %}
+        Already logged in as {{session.user}}. <br>
+        Log in as another user: <br>
+        {% endif %}
+        Log in: <br>
+        <form action="/login" method=POST><br>
+            Username: <input type="text" name="username"><br>
+            Password: <input type="password" name="password"><br>
+            <input type="submit" name="login" value="Login"><br>
+            <input type="submit" name="createaccount" value="Create account"><br>
+        </form>
+    </body>
+</html>

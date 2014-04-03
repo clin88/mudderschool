@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
 
 # WARNING: TURN OFF IF PRODUCTION
-app.debug = True
+# app.debug = True
 heroku = Heroku(app)
 
 @app.route('/mud')
