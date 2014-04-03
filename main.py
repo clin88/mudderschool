@@ -4,8 +4,10 @@ From there, your journey is up to you."""
 
 from flask import Flask, g, render_template
 from flask.ext.heroku import Heroku
+import os
 
 app = Flask(__name__)
+app.secret_key = os.environ['SECRET_KEY']
 
 # WARNING: TURN OFF IF PRODUCTION
 # app.debug = True
