@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
@@ -25,7 +26,8 @@ def validateLogin(login, password):
         return {"status":True,"message":"Successful login!", "user":user}
       else:
         return {"status":False,"message":"Incorrect password!"}
-    except:
+    except Exception, e:
+      print e
       return {"status":False,"message":"Something's wrong, you might have two identical logins."}
   else:
     return {"status":False,"message":"User does not exist."}
@@ -36,12 +38,14 @@ def validateLogin(login, password):
 
 def createAccount(login, password):
   session = Session()
-  q = session.query(Player).filter(Player.login == login)
-  if session.query(q.exists()):
+  q = session.query(Player).filter(Player.login == login).first()
+  if q is not None:
     return {"status":False,"message":"Account already exists."}
   else:
     newuser = Player(public_name = login, login = login, password = password, experience = 0)
     session.add(newuser)
     session.commit()
+    session.close()
     return {"status":True,"message":"Account created!", "user":newuser}
 
+Base.metadata.create_all(engine)

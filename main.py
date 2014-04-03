@@ -6,6 +6,7 @@ from flask import Flask, g, render_template, session, request, redirect
 from flask import flash
 from flask.ext.heroku import Heroku
 import os
+from models import validateLogin, createAccount 
 import models
 
 app = Flask(__name__)
@@ -30,10 +31,13 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def login_post():
+  uname = request.form['username']
+  passw = request.form['password']
   if 'createaccount' in request.form:
-    return "Create account not yet implemented."
+    result = createAccount(uname, passw)
+    return "MSG: {}".format(result['message'])
   elif 'login' in request.form:
-    login = validateLogin(request.form['username'], request.form['password'])
+    login = validateLogin(uname, passw)
     if login['status']:
       session.user = login['user']
       return "Login successful."
