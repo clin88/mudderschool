@@ -2,24 +2,48 @@
 fun and profit.  One day, a friend contacts you looking to gain info about IntroSys Inc.
 From there, your journey is up to you."""
 
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, session, request, redirect
+from flask import flash
 from flask.ext.heroku import Heroku
 import os
+import models
 
 app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
 
 # WARNING: TURN OFF IF PRODUCTION
-# app.debug = True
+app.debug = True
 heroku = Heroku(app)
 
 @app.route('/mud')
 def hello_world():
-  return 'Hello World!'
+  if 'user' in session:
+    return 'Hello {}'.format(session['user'])
+  else:
+    # 307 is a temporary redirect
+    flash('Redirect from {}'.format(request.url, 'info'))
+    return redirect('/login', 307)
+
+@app.route('/login')
+def login():
+  return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login_post():
+  if 'createaccount' in request.form:
+    session.
+  elif 'login' in request.form:
+    
+
+@app.route('/logout')
+def logout():
+  session.pop('user', None)
+  session.sessionMessages += "Logged out.<br>"
+  return redirect('/login',307)
 
 @app.errorhandler(404)
 def page_not_found(e):
-  return 'You didn\'t want to go here. Go to <a href=\'/mud\'>this page</a> instead.', 404
+  return "You didn't want to go here. Go to <a href='/mud'>this page</a> instead.", 404
 
 @app.route('/debug')
 def debug():

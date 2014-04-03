@@ -1,5 +1,8 @@
 <HTML>
 <BODY>
+    {% if session.nonexistentkey %}
+        THIS SHOULD NEVER HAPPEN
+    {% endif %}
     Hello, your session is: {{ session }}.
     <P>
     Your request is: {{ request }}.
