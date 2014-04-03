@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from main import mud_app
+import os
 
-engine = create_engine(mud_app.config['SQLALCHEMY_DATABASE_URI'], echo=True)
+engine = create_engine(os.environ['DATABASE_URL'], echo=True)
 
 Base = declarative_base()
 
