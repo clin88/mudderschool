@@ -45,5 +45,3 @@ def createAccount(login, password):
     session.commit()
     return {"status":True,"message":"Account created!", "user":newuser}
 
-
-
