@@ -15,7 +15,7 @@ class Player(Base):
   password = Column(String)
   experience = Column(Integer)
   
-def validateLogin(login, password, session):
+def validateLogin(login, password):
   session = Session()
   q = session.query(Player).filter(Player.login == login)
   if session.query(q.exists()):
@@ -33,3 +33,4 @@ def validateLogin(login, password, session):
   # Successful login
   # Login exists, wrong password
   # Nothing at all
+

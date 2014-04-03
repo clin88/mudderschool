@@ -31,9 +31,14 @@ def login():
 @app.route('/login', methods=['POST'])
 def login_post():
   if 'createaccount' in request.form:
-    session.
+    return "Create account not yet implemented."
   elif 'login' in request.form:
-    
+    login = validateLogin(request.form['username'], request.form['password'])
+    if login['status']:
+      session.user = login['user']
+      return "Login successful."
+    else:
+      return login['message']
 
 @app.route('/logout')
 def logout():
